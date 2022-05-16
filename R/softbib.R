@@ -7,7 +7,7 @@ write_bib <- function(pkgnames, path) {
 }
 
 get_dependencies <- function(path) {
-    renv::dependencies(path = path)$Package
+    sort(unique(renv::dependencies(path = path)$Package))
 }
 
 write_rmarkdown <- function(fn_bibtex,
