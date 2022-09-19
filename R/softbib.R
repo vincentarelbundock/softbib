@@ -4,6 +4,11 @@ get_keys <- function(path) {
 
 write_bib <- function(pkgnames, path) {
     bibtex::write.bib(pkgnames, path)
+    # make sure everything is UTF-8
+    # https://stackoverflow.com/questions/7481799/convert-a-file-encoding-using-r-ansi-to-utf-8
+    writeLines(
+        iconv(readLines(path), from = "", to = "UTF8"), 
+        file(path, encoding="UTF-8"))
 }
 
 get_dependencies <- function(path) {
@@ -107,6 +112,19 @@ softbib <- function(
     }
 
     deps <- setdiff(deps, exclude)
+
+    deps[deps == "R"] <- "base"
+
+    deps <- unique(deps)
+
+    void <- capture.output(
+        missing <- suppressMessages(suppressWarnings(sapply(deps, requireNamespace, quietly = TRUE)))
+    )
+    if (any(!missing)) {
+        missing <- names(missing)[!missing]
+        msg <- sprintf("Missing package(s): %s.", paste(missing, collapse = ", "))
+        stop(msg, call. = FALSE)
+    }
 
     if (length(deps) == 0) {
         stop("Could not find an included `R` package.", call. = FALSE)
