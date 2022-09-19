@@ -5,45 +5,50 @@
 
 This package detects all the `R` librairies used in a project and
 automatically creates software bibliographies in PDF, Word, Rmarkdown,
-and BibTeX formats.
+and BibTeX formats. Bibliographies can be printed in thousands of
+styles, using CSL files downloaded from the [Zotero style
+repository.](https://www.zotero.org/styles)
 
 ## Installation
 
-You can install the development version of softbib like so:
+Install the development version of `softbib`:
 
 ``` r
 library(remotes)
 install_github("vincentarelbundock/softbib")
 ```
 
-## Example
+## Examples
 
-From the terminal, we create a new project with a simple `R` script:
-
-``` sh
-mkdir new_project
-cd new_project
-
-echo 'library(countrycode)
-library(stringr)
-countrycode("Canada", "country.name", "iso3c")' > script.R
-```
-
-Launch `R`:
-
-``` sh
-R
-```
-
-Load `softbib` and read the documentation:
+Navigate to a project folder, crawl the working directory to get a list
+of `R` packages, and create bibliographies:
 
 ``` r
 library(softbib)
-?softbib
+
+setwd("~/path/to/my/R/project/")
+
+softbib()
 ```
 
-Scan the project folder and create software bibliographies:
+Exclude some packages from the bibliography:
 
 ``` r
-softbib()
+softbib(exclude = c("base", "dplyr"))
+```
+
+Specify the list of packages to include manually:
+
+``` r
+softbib(include = c("countrycode", "modelsummary", "marginaleffects"))
+```
+
+Download a Citation Style Language file from the Zotero archive and
+print a bibliography in the style of the American Political Science
+Review:
+
+``` r
+download.file("https://www.zotero.org/styles/american-political-science-review", destfile = "apsr.csl")
+
+softbib(style = "apsr.csl")
 ```

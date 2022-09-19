@@ -30,7 +30,6 @@ write_rmarkdown <- function(fn_bibtex,
         rmd_template <- paste(rmd_template, collapse = "\n")
         out <- sprintf(rmd_template, fn_bibtex, keys)
     } else {
-        rmd_template <- rmd_template[!grepl("^csl", rmd_template)]
         rmd_template <- paste(rmd_template, collapse = "\n")
         out <- sprintf(rmd_template, fn_bibtex, keys, style)
     }
@@ -44,38 +43,34 @@ write_rmarkdown <- function(fn_bibtex,
 #' automatically creates software bibliographies in PDF, Word, Rmarkdown and
 #' BibTeX formats.
 #'
-#' @param project Path to the R project folder. By default, `softbib` uses the current working directory.
-#' @param output Character vector with file extensions of the desired output formats.
-#' @param style Path to a Citation Style Language file (with `.csl` extension)
-#'   which controls the reference style. CSL files can be downloaded from the
-#'   Zotero Repository: https://www.zotero.org/styles
-#' @param exclude character vector with BibTeX keys to exclude from the software bibliography.
-#' @param include character vector with BibTeX keys to include in the software bibliography.
+#' @param include `NULL` or character vector.
+#' + `NULL`: the working directory is crawled to identify `R` packages used in the project, and all packages are included in the software bibliography.
+#' + Character vector: the names of packages to include in the bibliography.
+#' @param exclude character vector of package names to exclude from the bibliography.
+#' @param style Path to a Citation Style Language file (with `.csl` extension) '
+#  which controls the reference style. The CSL file must be saved in the working
+#  directory or one of its subdirectories. CSL files can be downloaded from the
+#' Zotero Repository: https://www.zotero.org/styles
 #' @export
 softbib <- function(
-    project = getwd(),
-    output = c("bib", "pdf", "docx", "rmd"),
-    style = NULL,
+    include = NULL,
     exclude = NULL,
-    include = NULL) {
+    style = NULL) {
 
-    # hard-coded name will be saved in the project folder
+    # hard-coded values could eventually be set manually
     bibliography_name <- "softbib"
+    project = getwd()
 
     # sanity checks
-    checkmate::assert_directory_exists(project)
-    checkmate::assert_character(output)
-    checkmate::assert_true(all(output %in% c("bib", "pdf", "docx", "rmd")))
     checkmate::assert_character(exclude, null.ok = TRUE)
     checkmate::assert_character(include, null.ok = TRUE)
-
-    if (!is.null(include) && !is.null(exclude)) {
-        stop("The `include` and `exclude` arguments cannot be used simultaneously.")
+    if (!is.null(style)) {
+        checkmate::assert_file_exists(style, extension = "csl")
+        style <- path.expand(style)
     }
 
-    flag <- checkmate::check_file_exists(style, extension = "csl")
-    if (!is.null(style) && !isTRUE(flag)) {
-        stop("The `style` argument must be `NULL` or be a valid path to a Citation Style Language file with a `.csl` extension. You can download CSL files to format citations in over 10000 styles from the Zotero Repository: https://www.zotero.org/styles")
+    if (!is.null(include) && !is.null(exclude)) {
+        stop("The `include` and `exclude` arguments cannot be used simultaneously.", call. = FALSE)
     }
 
     fn_rmarkdown <- file.path(project, paste0(bibliography_name, ".Rmd"))
@@ -83,40 +78,30 @@ softbib <- function(
     fn_word <- file.path(project, paste0(bibliography_name, ".docx"))
     fn_bibtex <- file.path(project, paste0(bibliography_name, ".bib"))
 
-    deps <- get_dependencies(project)
-    deps <- c("base", deps) # cite R base unless in `exclude`
+    if (is.null(include)) {
+        deps <- get_dependencies(project)
+        deps <- c("base", deps) # cite R base unless in `exclude`
+    } else {
+        deps <- include
+    }
+
+    deps <- setdiff(deps, exclude)
+
+    if (length(deps) == 0) {
+        stop("Could not find an included `R` package.", call. = FALSE)
+    }
 
     write_bib(deps, fn_bibtex)
 
     keys <- get_keys(fn_bibtex)
 
-    if (!is.null(exclude)) {
-        keys <- setdiff(keys, exclude)
-    }
+    write_rmarkdown(
+        fn_bibtex,
+        fn_rmarkdown,
+        style = style,
+        keys = keys)
 
-    if (!is.null(include)) {
-        if (any(!include %in% keys)) {
-            stop(sprintf("Some of the BibTeX keys in the `include` argument are missing from the generated BibTeX file stored here: %s", fn_bibtex))
-        }
-    }
-
-    write_rmarkdown(fn_bibtex,
-                    fn_rmarkdown,
-                    style = style,
-                    keys = keys)
-
-    if ("pdf" %in% output) {
-        rmarkdown::render(input = fn_rmarkdown, output_file = fn_pdf)
-    }
-    if ("docx" %in% output) {
-        rmarkdown::render(input = fn_rmarkdown, output_file = fn_word)
-    }
-    # cleanup
-    if (!"rmd" %in% output) {
-        unlink(fn_rmarkdown)
-    }
-    if (!"bib" %in% output) {
-        unlink(fn_bibtex)
-    }
+    rmarkdown::render(input = fn_rmarkdown, output_file = fn_pdf)
+    rmarkdown::render(input = fn_rmarkdown, output_file = fn_word)
 }
 
