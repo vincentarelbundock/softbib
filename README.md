@@ -48,7 +48,9 @@ print a bibliography in the style of the American Political Science
 Review:
 
 ``` r
-download.file("https://www.zotero.org/styles/american-political-science-review", destfile = "apsr.csl")
+download.file(
+  "https://www.zotero.org/styles/american-political-science-review",
+  destfile = "apsr.csl")
 
 softbib(style = "apsr.csl")
 ```

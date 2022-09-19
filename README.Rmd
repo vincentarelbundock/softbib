@@ -53,7 +53,9 @@ softbib(include = c("countrycode", "modelsummary", "marginaleffects"))
 Download a Citation Style Language file from the Zotero archive and print a bibliography in the style of the American Political Science Review:
 
 ```{r, eval = FALSE}
-download.file("https://www.zotero.org/styles/american-political-science-review", destfile = "apsr.csl")
+download.file(
+  "https://www.zotero.org/styles/american-political-science-review",
+  destfile = "apsr.csl")
 
 softbib(style = "apsr.csl")
 ```
