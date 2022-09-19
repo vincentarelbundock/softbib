@@ -4,26 +4,17 @@
 \alias{softbib}
 \title{Software Bibliographies}
 \usage{
-softbib(
-  project = getwd(),
-  output = c("bib", "pdf", "docx", "rmd"),
-  style = NULL,
-  exclude = NULL,
-  include = NULL
-)
+softbib(include = NULL, exclude = NULL, style = NULL)
 }
 \arguments{
-\item{project}{Path to the R project folder. By default, `softbib` uses the current working directory.}
+\item{include}{`NULL` or character vector.
++ `NULL`: the working directory is crawled to identify `R` packages used in the project, and all packages are included in the software bibliography.
++ Character vector: the names of packages to include in the bibliography.}
 
-\item{output}{Character vector with file extensions of the desired output formats.}
+\item{exclude}{character vector of package names to exclude from the bibliography.}
 
-\item{style}{Path to a Citation Style Language file (with `.csl` extension)
-which controls the reference style. CSL files can be downloaded from the
+\item{style}{Path to a Citation Style Language file (with `.csl` extension) '
 Zotero Repository: https://www.zotero.org/styles}
-
-\item{exclude}{character vector with BibTeX keys to exclude from the software bibliography.}
-
-\item{include}{character vector with BibTeX keys to include in the software bibliography.}
 }
 \description{
 This function detects all the R packages used in a project folder and
