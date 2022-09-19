@@ -51,6 +51,27 @@ write_rmarkdown <- function(fn_bibtex,
 #  which controls the reference style. The CSL file must be saved in the working
 #  directory or one of its subdirectories. CSL files can be downloaded from the
 #' Zotero Repository: https://www.zotero.org/styles
+#' @examples
+#' \dontrun{
+#' # Navigate to a project folder, crawl the working directory to get a list of `R`
+#' # packages, and create bibliographies
+#' library(softbib)
+#' setwd("~/path/to/my/R/project/")
+#' softbib()
+#' 
+#' # Exclude some packages from the bibliography
+#' softbib(exclude = c("base", "dplyr"))
+#' 
+#' # Specify the list of packages to include manually
+#' softbib(include = c("countrycode", "modelsummary", "marginaleffects"))
+#' 
+#' # Download a Citation Style Language file from the Zotero archive and print a
+#' # bibliography in the style of the American Political Science Review
+#' download.file(
+#'   "https://www.zotero.org/styles/american-political-science-review",
+#'   destfile = "apsr.csl")
+#' softbib(style = "apsr.csl")
+#' }
 #' @export
 softbib <- function(
     include = NULL,

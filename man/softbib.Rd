@@ -7,17 +7,41 @@
 softbib(include = NULL, exclude = NULL, style = NULL)
 }
 \arguments{
-\item{include}{`NULL` or character vector.
-+ `NULL`: the working directory is crawled to identify `R` packages used in the project, and all packages are included in the software bibliography.
-+ Character vector: the names of packages to include in the bibliography.}
+\item{include}{\code{NULL} or character vector.
+\itemize{
+\item \code{NULL}: the working directory is crawled to identify \code{R} packages used in the project, and all packages are included in the software bibliography.
+\item Character vector: the names of packages to include in the bibliography.
+}}
 
 \item{exclude}{character vector of package names to exclude from the bibliography.}
 
-\item{style}{Path to a Citation Style Language file (with `.csl` extension) '
+\item{style}{Path to a Citation Style Language file (with \code{.csl} extension) '
 Zotero Repository: https://www.zotero.org/styles}
 }
 \description{
 This function detects all the R packages used in a project folder and
 automatically creates software bibliographies in PDF, Word, Rmarkdown and
 BibTeX formats.
+}
+\examples{
+\dontrun{
+# Navigate to a project folder, crawl the working directory to get a list of `R`
+# packages, and create bibliographies
+library(softbib)
+setwd("~/path/to/my/R/project/")
+softbib()
+
+# Exclude some packages from the bibliography
+softbib(exclude = c("base", "dplyr"))
+
+# Specify the list of packages to include manually
+softbib(include = c("countrycode", "modelsummary", "marginaleffects"))
+
+# Download a Citation Style Language file from the Zotero archive and print a
+# bibliography in the style of the American Political Science Review
+download.file(
+  "https://www.zotero.org/styles/american-political-science-review",
+  destfile = "apsr.csl")
+softbib(style = "apsr.csl")
+}
 }
