@@ -38,7 +38,9 @@ write_rmarkdown <- function(fn_bibtex,
         rmd_template <- paste(rmd_template, collapse = "\n")
         out <- sprintf(rmd_template, fn_bibtex, keys, style)
     }
-    cat(out, file = fn_rmarkdown, append = FALSE)
+    writeLines(
+        out,
+        file(fn_rmarkdown, encoding = "UTF-8"))
 }
 
 
