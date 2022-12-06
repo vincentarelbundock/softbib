@@ -4,9 +4,19 @@
 \alias{softbib}
 \title{Software Bibliographies}
 \usage{
-softbib(include = NULL, exclude = NULL, style = NULL)
+softbib(
+  output = c("softbib.pdf", "softbib.docx", "softbib.bib", "softbib.Rmd"),
+  output_dir = getwd(),
+  include = NULL,
+  exclude = NULL,
+  style = NULL
+)
 }
 \arguments{
+\item{output}{vector of file paths or \code{NULL}. Acceptable file name extensions: .bib, .Rmd, .docx, .pdf. \code{NULL} returns a vector of BibTeX cite keys.}
+
+\item{output_dir}{path of the directory where files should be saved.}
+
 \item{include}{\code{NULL} or character vector.
 \itemize{
 \item \code{NULL}: the working directory is crawled to identify \code{R} packages used in the project, and all packages are included in the software bibliography.
