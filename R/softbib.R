@@ -81,7 +81,8 @@ softbib <- function(
         regex <- paste0("\\.", ext, "$")
         out <- output[grepl(regex, output)]
         if (!isTRUE(checkmate::check_path_for_output(out, overwrite = TRUE))) {
-            out <- paste0(tempfile(), ".", ext)
+            rand <- sample(1:1e7, 1)
+            out <- paste0("softbib_tmp_", rand, ".", ext)
         }
         return(out)
     }
