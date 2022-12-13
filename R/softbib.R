@@ -183,7 +183,7 @@ write_bib <- function(pkgnames, path) {
 
 
 get_dependencies <- function(path) {
-    sort(unique(renv::dependencies(path = path)$Package))
+    sort(unique(renv::dependencies(path = path, root = path)$Package))
 }
 
 

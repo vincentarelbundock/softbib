@@ -26,7 +26,7 @@ library(remotes)
 install_github("vincentarelbundock/softbib")
 ```
 
-## Examples
+## Getting started
 
 Navigate to a project folder, crawl the working directory to get a list of `R` packages, and create bibliographies:
 
@@ -58,4 +58,14 @@ download.file(
   destfile = "apsr.csl")
 
 softbib(style = "apsr.csl")
+```
+
+## Ignoring files and folders
+
+`softbib` uses the `renv::dependencies()` function to detect `R` packages used in a project folder. Like the `renv` package, `softbib` can respect user instructions to ignore certain files and folders. To specify those ignore instructions, you must place a file called `.renvignore` in the working directory. This file can include lines such as:
+
+```
+ignorethiscript.R
+ignorethisfolder/ignorethisscript2.R
+ignorethisfolder/
 ```
