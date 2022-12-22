@@ -61,14 +61,15 @@ softbib <- function(
     }
     if (!is.null(output)) {
         extensions <- tools::file_ext(output)
-        flag <- checkmate::check_true(all(extensions %in% c("pdf", "docx", "bib", "Rmd")))
+        flag <- checkmate::check_true(all(extensions %in% c("pdf", "docx", "bib", "Rmd", "md")))
         if (!isTRUE(flag)) {
-            stop('The `output` argument must be a vector of file paths with the following extensions: ".pdf", ".docx", ".bib", ".Rdm"', call. = FALSE)
+            stop('The `output` argument must be "a vector of file paths with the following extensions: ".pdf", ".docx", ".bib", ".Rmd", ".md"', call. = FALSE)
         }
         if (anyDuplicated(extensions)) {
             stop("The `output` argument cannot include multiple paths with the same extension.", call. = FALSE)
         }
     }
+    
 
     # paths and unlink flags
     get_unlink <- function(ext) {
@@ -91,12 +92,14 @@ softbib <- function(
     unlink_bib <- get_unlink("bib")
     unlink_Rmd <- get_unlink("Rmd")
     unlink_docx <- get_unlink("docx")
+    unlink_md <- get_unlink("md")
 
 
     fn_Rmd <- get_path("Rmd")
     fn_bib <- get_path("bib")
     fn_pdf <- get_path("pdf")
     fn_docx <- get_path("docx")
+    fn_md <- get_path("md")
 
     # without bibtex, markdown file is useless
     if (isFALSE(unlink_Rmd) && isTRUE(unlink_bib)) {
@@ -143,7 +146,7 @@ softbib <- function(
         return(invisible(keys))
     }
 
-    if (isTRUE(unlink_Rmd) && isTRUE(unlink_pdf) && isTRUE(unlink_docx)) {
+    if (isTRUE(unlink_Rmd) && isTRUE(unlink_pdf) && isTRUE(unlink_docx) && isTRUE(unlink_md)) {
         return(invisible(keys))
     }
 
@@ -158,6 +161,13 @@ softbib <- function(
     }
     if (!isTRUE(unlink_docx)) {
         rmarkdown::render(input = fn_Rmd, output_file = fn_docx, output_dir = output_dir)
+    }
+    if (!isTRUE(unlink_md)) {
+        rmarkdown::render(
+            input = fn_Rmd,
+            output_format = "md_document",
+            output_file = fn_md,
+            output_dir = output_dir)
     }
     
     if (isTRUE(unlink_bib)) unlink(fn_bib)
