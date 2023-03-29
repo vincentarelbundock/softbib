@@ -2,10 +2,14 @@ Package: softbib
 Type: Package
 Title: Software Bibliographies for R Projects
 Version: 0.0.1
-Date: 2022-12-13
-Author: Vincent Arel-Bundock
+Authors@R:
+    c(person(given = "Vincent",
+             family = "Arel-Bundock",
+             role = c("aut", "cre", "cph"),
+             email = "vincent.arel-bundock@umontreal.ca",
+             comment = c(ORCID = "0000-0003-2042-7063")))
 Maintainer: Vincent Arel-Bundock <vincent.arel-bundock@umontreal.ca>
-Description: This package detects all the `R` librairies used in a project and automatically creates software bibliographies in PDF, Word, Rmarkdown, and BibTeX formats.
+Description: Detect Libraries Used in a Project and Automatically Create Software Bibliographies in PDF, Word, Rmarkdown, and BibTeX formats.
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5.0)
@@ -15,6 +19,5 @@ Imports:
     rmarkdown,
     bibtex
 License: GPL (>= 3)
-Suggests: tinytest
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

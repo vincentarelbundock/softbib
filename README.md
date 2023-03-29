@@ -3,7 +3,7 @@
 
 # `softbib`: Software Bibliographies for `R` Projects
 
-This package detects all the `R` librairies used in a project and
+This package detects all the `R` libraries used in a project and
 automatically creates software bibliographies in PDF, Word, Rmarkdown,
 and BibTeX formats. Bibliographies can be printed in thousands of
 styles, using CSL files downloaded from the [Zotero style

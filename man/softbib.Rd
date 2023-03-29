@@ -26,7 +26,7 @@ softbib(
 \item{exclude}{character vector of package names to exclude from the bibliography.}
 
 \item{style}{Path to a Citation Style Language file (with \code{.csl} extension) '
-Zotero Repository: https://www.zotero.org/styles}
+Zotero Repository: \url{https://www.zotero.org/styles}}
 }
 \description{
 This function detects all the R packages used in a project folder and

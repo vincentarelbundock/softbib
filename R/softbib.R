@@ -14,7 +14,7 @@
 #' @param style Path to a Citation Style Language file (with `.csl` extension) '
 #  which controls the reference style. The CSL file must be saved in the working
 #  directory or one of its subdirectories. CSL files can be downloaded from the
-#' Zotero Repository: https://www.zotero.org/styles
+#' Zotero Repository: <https://www.zotero.org/styles>
 #' @examples
 #' \dontrun{
 #' # Navigate to a project folder, crawl the working directory to get a list of `R`
@@ -120,7 +120,7 @@ softbib <- function(
 
     deps <- unique(deps)
 
-    void <- capture.output(
+    void <- utils::capture.output(
         missing <- suppressMessages(suppressWarnings(sapply(deps, requireNamespace, quietly = TRUE)))
     )
     if (any(!missing)) {
