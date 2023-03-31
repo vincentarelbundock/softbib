@@ -9,7 +9,7 @@ Authors@R:
              email = "vincent.arel-bundock@umontreal.ca",
              comment = c(ORCID = "0000-0003-2042-7063")))
 Maintainer: Vincent Arel-Bundock <vincent.arel-bundock@umontreal.ca>
-Description: Detect Libraries Used in a Project and Automatically Create Software Bibliographies in PDF, Word, Rmarkdown, and BibTeX formats.
+Description: Detect libraries used in a project and automatically create software bibliographies in 'PDF', 'Word', 'Rmarkdown', and 'BibTeX' formats.
 Roxygen: list(markdown = TRUE)
 Depends:
     R (>= 3.5.0)

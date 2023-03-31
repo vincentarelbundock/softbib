@@ -15,8 +15,13 @@
 #  which controls the reference style. The CSL file must be saved in the working
 #  directory or one of its subdirectories. CSL files can be downloaded from the
 #' Zotero Repository: <https://www.zotero.org/styles>
+#' @return Writes bibliography to file and returns a character vector of citation keys.
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
+#'
+#' # Save current path
+#' oldpath <- getwd()
+#'
 #' # Navigate to a project folder, crawl the working directory to get a list of `R`
 #' # packages, and create bibliographies
 #' library(softbib)
@@ -35,7 +40,11 @@
 #'   "https://www.zotero.org/styles/american-political-science-review",
 #'   destfile = "apsr.csl")
 #' softbib(style = "apsr.csl")
-#' }
+#'
+#' # Return to old path
+#' setwd(oldpath)
+#'
+#' } # end if(interactive()){}
 #' @export
 softbib <- function(
     output = c("softbib.pdf", "softbib.docx", "softbib.bib", "softbib.Rmd"),

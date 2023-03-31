@@ -28,13 +28,20 @@ softbib(
 \item{style}{Path to a Citation Style Language file (with \code{.csl} extension) '
 Zotero Repository: \url{https://www.zotero.org/styles}}
 }
+\value{
+Writes bibliography to file and returns a character vector of citation keys.
+}
 \description{
 This function detects all the R packages used in a project folder and
 automatically creates software bibliographies in PDF, Word, Rmarkdown and
 BibTeX formats.
 }
 \examples{
-\dontrun{
+if (interactive()) {
+
+# Save current path
+oldpath <- getwd()
+
 # Navigate to a project folder, crawl the working directory to get a list of `R`
 # packages, and create bibliographies
 library(softbib)
@@ -53,5 +60,8 @@ download.file(
   "https://www.zotero.org/styles/american-political-science-review",
   destfile = "apsr.csl")
 softbib(style = "apsr.csl")
-}
+
+# Return to old path
+setwd(oldpath)
+} # end if(interactive()){}
 }
