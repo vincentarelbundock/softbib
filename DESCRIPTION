@@ -11,6 +11,8 @@ Authors@R:
 Maintainer: Vincent Arel-Bundock <vincent.arel-bundock@umontreal.ca>
 Description: Detect libraries used in a project and automatically create software bibliographies in 'PDF', 'Word', 'Rmarkdown', and 'BibTeX' formats.
 Roxygen: list(markdown = TRUE)
+URL: https://vincentarelbundock.github.io/softbib
+BugReports: https://github.com/vincentarelbundock/softbib/issues
 Depends:
     R (>= 3.5.0)
 Imports: 

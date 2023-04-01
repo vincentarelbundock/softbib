@@ -1,0 +1,5 @@
+url: https://vincentarelbundock.github.io/softbib/
+development:
+  mode: auto
+template:
+  bootstrap: 5
