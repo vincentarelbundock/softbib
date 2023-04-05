@@ -11,12 +11,18 @@ repository.](https://www.zotero.org/styles)
 
 ## Installation
 
-Install the development version of `softbib`:
+``` r
+install.packages("softbib")
+```
+
+Or you can install the development version of `softbib`:
 
 ``` r
 library(remotes)
 install_github("vincentarelbundock/softbib")
 ```
+
+Make sure you restart `R` for the change to take effect.
 
 ## Getting started
 
