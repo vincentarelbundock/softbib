@@ -9,6 +9,10 @@ and BibTeX formats. Bibliographies can be printed in thousands of
 styles, using CSL files downloaded from the [Zotero style
 repository.](https://www.zotero.org/styles)
 
+> Arel-Bundock, Vincent, and Joshua McCrain. 2023. “Software Citations
+> in Political Science.” PS: Political Science & Politics, April, 1–4.
+> <https://doi.org/10.1017/S1049096523000239>.
+
 ## Installation
 
 ``` r

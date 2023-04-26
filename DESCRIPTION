@@ -1,7 +1,7 @@
 Package: softbib
 Type: Package
 Title: Software Bibliographies for R Projects
-Version: 0.0.1
+Version: 0.0.2
 Authors@R:
     c(person(given = "Vincent",
              family = "Arel-Bundock",
