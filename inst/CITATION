@@ -14,6 +14,6 @@ bibentry(bibtype = "Article",
   year         = "2023",
   volume       = "April",
   pages        = "1--4",
-  doi          = "https://doi.org/10.1017/S1049096523000239",
+  doi          = "10.1017/S1049096523000239",
   header       = "To cite softbib in publications use:"
 )
