@@ -10,7 +10,7 @@ bibentry(bibtype = "Article",
            email = "josh.mccrain@utah.edu",
            comment = c(ORCID = "0000-0002-2427-7843"))
   ),
-  journal      = "PS: Political Science & Politics",
+  journal      = "PS: Political Science \\& Politics",
   year         = "2023",
   volume       = "April",
   pages        = "1--4",
