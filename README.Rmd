@@ -144,3 +144,5 @@ pdflatex article
 The result should look like this:
 
 ![](https://user-images.githubusercontent.com/987057/207441851-ec863a78-430f-43e9-a825-803e4d494f02.png)
+
+For a `BibLaTeX` version of this example, see [this issue.](https://github.com/vincentarelbundock/softbib/issues/12)
